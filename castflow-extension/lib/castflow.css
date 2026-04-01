@@ -1,0 +1,732 @@
+/* ============================================
+   CastFlow.css — Video-like guided tour library
+   ============================================ */
+
+/* Overlay that covers the entire viewport */
+.cf-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 99990;
+  pointer-events: none;
+  transition: opacity 0.4s ease;
+}
+
+.cf-overlay.cf-active {
+  pointer-events: auto;
+}
+
+.cf-overlay svg {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+/* Highlight ring */
+.cf-highlight-ring {
+  position: fixed;
+  z-index: 99991;
+  border-radius: 8px;
+  pointer-events: none;
+  box-shadow:
+    0 0 0 4px rgba(59, 130, 246, 0.5),
+    0 0 20px rgba(59, 130, 246, 0.3),
+    0 0 40px rgba(59, 130, 246, 0.1);
+  transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+  opacity: 0;
+}
+
+.cf-highlight-ring.cf-visible {
+  opacity: 1;
+}
+
+.cf-highlight-ring::after {
+  content: '';
+  position: absolute;
+  top: -8px;
+  left: -8px;
+  right: -8px;
+  bottom: -8px;
+  border-radius: 12px;
+  border: 2px solid rgba(59, 130, 246, 0.4);
+  animation: cf-pulse 2s ease-in-out infinite;
+}
+
+@keyframes cf-pulse {
+  0%, 100% { transform: scale(1); opacity: 1; }
+  50% { transform: scale(1.03); opacity: 0.5; }
+}
+
+/* ============================================
+   Tooltip / Scene Card
+   ============================================ */
+.cf-tooltip {
+  position: fixed;
+  z-index: 99995;
+  background: #ffffff;
+  border-radius: 16px;
+  box-shadow:
+    0 25px 60px rgba(0, 0, 0, 0.15),
+    0 10px 20px rgba(0, 0, 0, 0.08),
+    0 0 0 1px rgba(0, 0, 0, 0.05);
+  max-width: 420px;
+  min-width: 280px;
+  opacity: 0;
+  transform: translateY(12px) scale(0.96);
+  transition: all 0.45s cubic-bezier(0.4, 0, 0.2, 1);
+  pointer-events: auto;
+  overflow: hidden;
+}
+
+.cf-tooltip.cf-visible {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+}
+
+.cf-tooltip-arrow {
+  position: fixed;
+  width: 16px;
+  height: 16px;
+  background: #ffffff;
+  transform: rotate(45deg);
+  box-shadow: -2px -2px 4px rgba(0, 0, 0, 0.04);
+  z-index: 99994;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.05s ease;
+}
+
+.cf-tooltip.cf-visible ~ .cf-tooltip-arrow {
+  opacity: 1;
+  transition: opacity 0.4s 0.15s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Progress bar */
+.cf-progress-bar {
+  height: 4px;
+  background: #e5e7eb;
+  width: 100%;
+  overflow: hidden;
+}
+
+.cf-progress-fill {
+  height: 100%;
+  background: linear-gradient(90deg, #3b82f6, #8b5cf6);
+  transition: width 0.4s ease;
+  border-radius: 0 2px 2px 0;
+}
+
+.cf-tooltip-body {
+  padding: 20px 24px 16px;
+}
+
+.cf-tooltip-title {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  font-size: 17px;
+  font-weight: 600;
+  color: #111827;
+  margin: 0 0 8px 0;
+  line-height: 1.4;
+}
+
+.cf-tooltip-text {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  font-size: 14px;
+  color: #6b7280;
+  margin: 0;
+  line-height: 1.6;
+}
+
+.cf-step-counter {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  font-size: 12px;
+  color: #9ca3af;
+  padding: 0 24px;
+  margin-bottom: 4px;
+}
+
+.cf-tooltip-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px 24px 16px;
+  gap: 8px;
+}
+
+.cf-btn {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  font-size: 13px;
+  font-weight: 500;
+  padding: 8px 18px;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  outline: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.cf-btn-secondary {
+  background: #f3f4f6;
+  color: #374151;
+}
+
+.cf-btn-secondary:hover {
+  background: #e5e7eb;
+}
+
+.cf-btn-primary {
+  background: linear-gradient(135deg, #3b82f6, #6366f1);
+  color: #ffffff;
+  box-shadow: 0 2px 8px rgba(59, 130, 246, 0.3);
+}
+
+.cf-btn-primary:hover {
+  box-shadow: 0 4px 14px rgba(59, 130, 246, 0.4);
+  transform: translateY(-1px);
+}
+
+.cf-btn-skip {
+  background: transparent;
+  color: #9ca3af;
+  padding: 8px 12px;
+  font-size: 12px;
+}
+
+.cf-btn-skip:hover {
+  color: #6b7280;
+}
+
+.cf-btn svg {
+  width: 14px;
+  height: 14px;
+  fill: currentColor;
+  flex-shrink: 0;
+}
+
+/* ============================================
+   Bottom Player Bar — Full (expanded)
+   ============================================ */
+.cf-player-bar {
+  position: fixed;
+  bottom: 12px;
+  left: 50%;
+  z-index: 99998;
+  background: rgba(17, 24, 39, 0.92);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-radius: 16px;
+  padding: 10px 20px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  width: 620px;
+  max-width: calc(100vw - 24px);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.25);
+  user-select: none;
+  /* initially hidden off screen */
+  transform: translateX(-50%) translateY(calc(100% + 20px));
+  transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1),
+              width 0.35s cubic-bezier(0.4, 0, 0.2, 1),
+              padding 0.35s ease,
+              border-radius 0.35s ease;
+  cursor: default;
+}
+
+.cf-player-bar.cf-visible {
+  transform: translateX(-50%) translateY(0);
+}
+
+/* Collapsed (mini) state */
+.cf-player-bar.cf-collapsed {
+  width: 220px;
+  padding: 8px 14px;
+  gap: 8px;
+  border-radius: 30px;
+  cursor: pointer;
+}
+
+.cf-player-bar.cf-collapsed .cf-bar-expandable {
+  display: none;
+}
+
+.cf-player-bar.cf-collapsed .cf-mini-info {
+  display: flex;
+}
+
+/* Dragging state */
+.cf-player-bar.cf-dragging {
+  transition: none;
+  opacity: 0.92;
+  cursor: grabbing;
+}
+
+/* Hide expandable parts when collapsed */
+.cf-bar-expandable {
+  display: contents;
+}
+
+.cf-mini-info {
+  display: none;
+  align-items: center;
+  gap: 8px;
+  flex: 1;
+  min-width: 0;
+}
+
+.cf-mini-info .cf-mini-counter {
+  font-family: 'Inter', monospace;
+  font-size: 12px;
+  color: rgba(255,255,255,0.7);
+  white-space: nowrap;
+}
+
+.cf-mini-info .cf-mini-progress {
+  flex: 1;
+  height: 3px;
+  background: rgba(255,255,255,0.15);
+  border-radius: 2px;
+  overflow: hidden;
+}
+
+.cf-mini-info .cf-mini-progress-fill {
+  height: 100%;
+  background: linear-gradient(90deg, #3b82f6, #8b5cf6);
+  border-radius: 2px;
+  transition: width 0.3s ease;
+}
+
+/* Collapse toggle button */
+.cf-collapse-btn {
+  width: 26px;
+  height: 26px;
+  border: none;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.08);
+  color: rgba(255, 255, 255, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  flex-shrink: 0;
+}
+
+.cf-collapse-btn:hover {
+  background: rgba(255, 255, 255, 0.15);
+  color: white;
+}
+
+.cf-collapse-btn svg {
+  width: 12px;
+  height: 12px;
+  fill: currentColor;
+  transition: transform 0.3s ease;
+}
+
+.cf-player-bar.cf-collapsed .cf-collapse-btn svg {
+  transform: rotate(180deg);
+}
+
+/* Play/Pause */
+.cf-play-btn {
+  width: 36px;
+  height: 36px;
+  border: none;
+  border-radius: 50%;
+  background: #3b82f6;
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  flex-shrink: 0;
+}
+
+.cf-player-bar.cf-collapsed .cf-play-btn {
+  width: 30px;
+  height: 30px;
+}
+
+.cf-play-btn:hover {
+  background: #2563eb;
+  transform: scale(1.08);
+}
+
+.cf-play-btn svg {
+  width: 16px;
+  height: 16px;
+  fill: currentColor;
+}
+
+/* Timeline */
+.cf-timeline-container {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  min-width: 0;
+}
+
+.cf-timeline {
+  position: relative;
+  height: 6px;
+  background: rgba(255, 255, 255, 0.15);
+  border-radius: 3px;
+  cursor: pointer;
+  overflow: hidden;
+}
+
+.cf-timeline-progress {
+  height: 100%;
+  background: linear-gradient(90deg, #3b82f6, #8b5cf6);
+  border-radius: 3px;
+  transition: width 0.3s ease;
+}
+
+.cf-timeline-markers {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+}
+
+.cf-timeline-marker {
+  position: absolute;
+  width: 3px;
+  height: 3px;
+  background: rgba(255, 255, 255, 0.5);
+  border-radius: 50%;
+  transform: translateX(-50%);
+}
+
+.cf-timeline-label {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  min-width: 0;
+}
+
+.cf-time-text {
+  font-family: 'Inter', monospace;
+  font-size: 10px;
+  color: rgba(255, 255, 255, 0.5);
+  flex-shrink: 0;
+  white-space: nowrap;
+}
+
+.cf-scene-title-bar {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  font-size: 11px;
+  color: rgba(255, 255, 255, 0.65);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  flex: 1;
+  min-width: 0;
+  text-align: center;
+}
+
+/* Prev/Next */
+.cf-nav-btn {
+  width: 28px;
+  height: 28px;
+  border: none;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.1);
+  color: rgba(255, 255, 255, 0.7);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  flex-shrink: 0;
+}
+
+.cf-nav-btn:hover {
+  background: rgba(255, 255, 255, 0.2);
+  color: white;
+}
+
+.cf-nav-btn svg {
+  width: 14px;
+  height: 14px;
+  fill: currentColor;
+}
+
+/* Close */
+.cf-close-btn {
+  width: 26px;
+  height: 26px;
+  border: none;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.08);
+  color: rgba(255, 255, 255, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  flex-shrink: 0;
+}
+
+.cf-close-btn:hover {
+  background: rgba(239, 68, 68, 0.3);
+  color: #fca5a5;
+}
+
+.cf-close-btn svg {
+  width: 12px;
+  height: 12px;
+  fill: currentColor;
+}
+
+/* Speed */
+.cf-speed-btn {
+  font-family: 'Inter', monospace;
+  font-size: 11px;
+  font-weight: 600;
+  color: rgba(255, 255, 255, 0.6);
+  background: rgba(255, 255, 255, 0.08);
+  border: none;
+  border-radius: 6px;
+  padding: 4px 8px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  flex-shrink: 0;
+}
+
+.cf-speed-btn:hover {
+  background: rgba(255, 255, 255, 0.15);
+  color: white;
+}
+
+/* Settings button (lang + voice) */
+.cf-settings-btn {
+  font-family: 'Inter', sans-serif;
+  font-size: 16px;
+  background: rgba(255, 255, 255, 0.08);
+  border: none;
+  border-radius: 6px;
+  padding: 4px 8px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  flex-shrink: 0;
+  line-height: 1;
+  color: rgba(255,255,255,0.7);
+}
+
+.cf-settings-btn:hover {
+  background: rgba(255, 255, 255, 0.15);
+}
+
+/* Settings dropdown */
+.cf-settings-dropdown {
+  position: absolute;
+  bottom: 100%;
+  right: 0;
+  margin-bottom: 8px;
+  background: rgba(17, 24, 39, 0.97);
+  backdrop-filter: blur(20px);
+  border-radius: 14px;
+  padding: 8px;
+  box-shadow: 0 -4px 24px rgba(0, 0, 0, 0.35);
+  display: none;
+  min-width: 240px;
+  max-height: 360px;
+  overflow-y: auto;
+}
+
+.cf-settings-dropdown.cf-visible {
+  display: block;
+  animation: cf-dropdown-in 0.2s ease;
+}
+
+@keyframes cf-dropdown-in {
+  from { opacity: 0; transform: translateY(8px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.cf-settings-section-title {
+  font-family: 'Inter', sans-serif;
+  font-size: 10px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: rgba(255,255,255,0.35);
+  padding: 8px 12px 4px;
+}
+
+.cf-settings-option {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 7px 12px;
+  border: none;
+  background: transparent;
+  color: rgba(255, 255, 255, 0.8);
+  font-family: 'Inter', sans-serif;
+  font-size: 13px;
+  cursor: pointer;
+  border-radius: 8px;
+  width: 100%;
+  text-align: left;
+  transition: background 0.15s;
+}
+
+.cf-settings-option:hover {
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.cf-settings-option.cf-active {
+  background: rgba(59, 130, 246, 0.2);
+  color: #93bbfc;
+}
+
+.cf-settings-flag {
+  font-size: 18px;
+  flex-shrink: 0;
+}
+
+.cf-settings-voice-name {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  flex: 1;
+  min-width: 0;
+}
+
+.cf-settings-divider {
+  height: 1px;
+  background: rgba(255,255,255,0.08);
+  margin: 6px 8px;
+}
+
+/* Drag handle visual hint */
+.cf-drag-handle {
+  width: 32px;
+  height: 4px;
+  background: rgba(255,255,255,0.15);
+  border-radius: 2px;
+  position: absolute;
+  top: 4px;
+  left: 50%;
+  transform: translateX(-50%);
+  cursor: grab;
+}
+
+.cf-player-bar.cf-collapsed .cf-drag-handle {
+  top: -6px;
+  height: 3px;
+  width: 24px;
+  background: rgba(255,255,255,0.25);
+  cursor: grab;
+}
+
+/* ============================================
+   Fake cursor
+   ============================================ */
+.cf-cursor {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 99999;
+  pointer-events: none;
+  width: 24px;
+  height: 24px;
+  transition: none;
+  opacity: 0;
+  filter: drop-shadow(1px 2px 3px rgba(0,0,0,0.3));
+}
+
+.cf-cursor.cf-visible {
+  opacity: 1;
+}
+
+.cf-cursor svg {
+  width: 100%;
+  height: 100%;
+}
+
+.cf-cursor-ripple {
+  position: fixed;
+  z-index: 99998;
+  pointer-events: none;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  background: rgba(59, 130, 246, 0.3);
+  transform: translate(-50%, -50%) scale(0);
+  animation: cf-ripple 0.6s ease-out forwards;
+}
+
+@keyframes cf-ripple {
+  0% { transform: translate(-50%, -50%) scale(0); opacity: 1; }
+  100% { transform: translate(-50%, -50%) scale(2.5); opacity: 0; }
+}
+
+/* ============================================
+   Responsive
+   ============================================ */
+@media (max-width: 640px) {
+  .cf-tooltip {
+    max-width: calc(100vw - 24px);
+    min-width: 240px;
+  }
+
+  .cf-player-bar {
+    width: calc(100% - 16px);
+    padding: 8px 14px;
+    gap: 8px;
+  }
+
+  .cf-scene-title-bar {
+    display: none;
+  }
+}
+
+/* ============================================
+   Dark theme variant
+   ============================================ */
+.cf-dark .cf-tooltip {
+  background: #1f2937;
+  box-shadow:
+    0 25px 60px rgba(0, 0, 0, 0.4),
+    0 10px 20px rgba(0, 0, 0, 0.2),
+    0 0 0 1px rgba(255, 255, 255, 0.05);
+}
+
+.cf-dark .cf-tooltip-arrow {
+  background: #1f2937;
+}
+
+.cf-dark .cf-tooltip-title {
+  color: #f9fafb;
+}
+
+.cf-dark .cf-tooltip-text {
+  color: #9ca3af;
+}
+
+.cf-dark .cf-progress-bar {
+  background: #374151;
+}
+
+.cf-dark .cf-btn-secondary {
+  background: #374151;
+  color: #d1d5db;
+}
+
+.cf-dark .cf-btn-secondary:hover {
+  background: #4b5563;
+}
