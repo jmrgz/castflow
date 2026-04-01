@@ -5,6 +5,10 @@
 [![Chrome Extension](https://img.shields.io/badge/Chrome-Extension-4285F4?logo=googlechrome&logoColor=fff)](castflow-extension/)
 [![Zero Dependencies](https://img.shields.io/badge/Dependencies-0-brightgreen)]()
 
+### 👉 [Live Demo — Try it now!](https://jmrgz.github.io/castflow/landing/) 👈
+
+> **See CastFlow in action** on its own landing page — with voice narration, animated cursor, and spotlight. Click "Watch the Tour" and experience it live.
+
 CastFlow is an open-source, zero-dependency vanilla JS library and Chrome extension that turns any website into an interactive guided tour with voice narration (TTS), an animated cursor, and elegant spotlight highlighting.
 
 It is built around a single philosophy: **Guided tours should feel like someone is live-teaching you how to use a product, with real interactions, not just static text tooltips.**

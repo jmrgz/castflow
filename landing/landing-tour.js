@@ -202,7 +202,7 @@
         scenes: scenes,
         lang: lang,
         autoPlay: true,
-        speed: lang === 'es-ES' ? 1.25 : 1,
+        speed: 1.25,
         showCursor: true,
         theme: 'light',
         startCollapsed: false,
