@@ -1,0 +1,33 @@
+{
+  "name": "castflow",
+  "version": "1.0.0",
+  "main": "castflow.js",
+  "files": [
+    "castflow.js",
+    "castflow.css",
+    "README.md"
+  ],
+  "keywords": [
+    "guided-tour",
+    "onboarding",
+    "product-tour",
+    "vanilla-js",
+    "walkthrough",
+    "tooltip",
+    "tts"
+  ],
+  "license": "MIT",
+  "description": "Guided tour engine — TTS, animated cursor, spotlight. Zero dependencies, pure vanilla JS",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jmrgz/castflow.git"
+  },
+  "author": "Juanma Rodríguez",
+  "bugs": {
+    "url": "https://github.com/jmrgz/castflow/issues"
+  },
+  "homepage": "https://github.com/jmrgz/castflow#readme"
+}

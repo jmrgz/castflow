@@ -2,6 +2,23 @@
 
 A video-like guided tour library with Text-to-Speech narration, fake cursor animation, and elegant spotlight highlighting. Designed as a **video tutorial** that plays automatically with voice narration.
 
+[![npm version](https://img.shields.io/npm/v/castflow)](https://www.npmjs.com/package/castflow)
+[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](https://github.com/jmrgz/castflow/blob/master/LICENSE)
+[![Zero Dependencies](https://img.shields.io/badge/Dependencies-0-brightgreen)](https://github.com/jmrgz/castflow)
+
+👉 [Live Demo](https://jmrgz.github.io/castflow/landing/) | [GitHub](https://github.com/jmrgz/castflow) | [npm](https://www.npmjs.com/package/castflow)
+
+## Installation
+```bash
+npm install castflow
+```
+
+Or include directly via CDN:
+```html
+<link rel="stylesheet" href="https://unpkg.com/castflow/castflow.css" />
+<script src="https://unpkg.com/castflow/castflow.js"></script>
+```
+
 ## Features
 
 - **Text-to-Speech** with language + voice selection in a settings panel

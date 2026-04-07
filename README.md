@@ -1,5 +1,6 @@
 # CastFlow — Guided Tours Anywhere 🚀
 
+[![npm version](https://img.shields.io/npm/v/castflow)](https://www.npmjs.com/package/castflow)
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
 [![Vanilla JS](https://img.shields.io/badge/Vanilla-JS-F7DF1E?logo=javascript&logoColor=000)](castflow/castflow.js)
 [![Chrome Extension](https://img.shields.io/badge/Chrome-Extension-4285F4?logo=googlechrome&logoColor=fff)](castflow-extension/)
@@ -105,6 +106,19 @@ You can easily export your generated tours as `.json` files and share them with 
 ### Library (embed in your own site)
 
 Download `castflow.js` and `castflow.css` from the [`/castflow`](./castflow/) folder, then include them in your HTML:
+
+**Via npm:**
+```bash
+npm install castflow
+```
+
+**Via CDN (no build step):**
+```html
+<link rel="stylesheet" href="https://unpkg.com/castflow/castflow.css" />
+<script src="https://unpkg.com/castflow/castflow.js"></script>
+```
+
+**Or download directly** from the [`/castflow`](./castflow/) folder:
 
 ```html
 <link rel="stylesheet" href="castflow.css" />
